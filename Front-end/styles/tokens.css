@@ -1,0 +1,31 @@
+:root {
+  --bg: #FFFFFF;
+  --surface: #F4F4F2;
+  --rule: #C8C8C0;
+  --rule-faint: #DCDCD6;
+
+  --primary: #1A3A6E;
+  --text: #1A3A6E;
+  --text-2: #444444;
+  --text-3: #888888;
+
+  --gold: #C6A86A;
+  --gold-faint: rgba(198, 168, 106, 0.08);
+
+  --font-sans: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-display: "Sora", sans-serif;
+
+  --nav-h: 80px;
+  --gutter: clamp(40px, 5.5vw, 80px);
+  --section-pad-y: clamp(72px, 10vw, 140px);
+  --content-max: 1280px;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  --dur-fast: 160ms;
+  --dur-mid: 280ms;
+  --dur-slow: 480ms;
+}
