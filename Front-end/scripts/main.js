@@ -2,7 +2,6 @@ import { initReveal } from './reveal.js';
 import { initFlowField } from './flow-field.js';
 
 import { initUnfilteredCanvas } from './unfiltered-canvas.js';
-initUnfilteredCanvas();
 
 let _cleanup = null;
 
@@ -660,13 +659,13 @@ function setup() {
 
   const cleanupReveal = initReveal();
   const cleanupFlowField = initFlowField();
-  const cleanupDecisionEngine = initDecisionEngine();
+  const cleanupUnfilteredCanvas = initUnfilteredCanvas();
   const cleanupValidationFlow = initValidationFlow();
 
   _cleanup = function cleanup() {
     if (cleanupReveal) cleanupReveal();
     if (cleanupFlowField) cleanupFlowField();
-    if (cleanupDecisionEngine) cleanupDecisionEngine();
+    if (cleanupUnfilteredCanvas) cleanupUnfilteredCanvas();
     if (cleanupValidationFlow) cleanupValidationFlow();
     _cleanup = null;
   };
