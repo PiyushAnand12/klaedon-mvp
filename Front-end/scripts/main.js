@@ -1,6 +1,8 @@
 import { initReveal } from './reveal.js';
 import { initFlowField } from './flow-field.js';
-import { initDecisionEngine } from './decision-engine.js';
+
+import { initUnfilteredCanvas } from './unfiltered-canvas.js';
+initUnfilteredCanvas();
 
 let _cleanup = null;
 

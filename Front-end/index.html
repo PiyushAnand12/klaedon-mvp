@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Klaedon — Turning market signals into trading decisions</title>
+  <title>Klaedon — Filtering the market into what's working</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link
@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="styles/components.css" />
   <link rel="stylesheet" href="styles/sections.css" />
   <link rel="stylesheet" href="styles/responsive.css" />
+  <link rel="stylesheet" href="styles/example-proof.css" />
 
   <style>
     .request-access-error,
@@ -90,9 +91,9 @@
     }
 
     .request-access-modal[hidden],
-.feedback-modal[hidden] {
-  display: none !important;
-}
+    .feedback-modal[hidden] {
+      display: none !important;
+    }
 
     .feedback-backdrop {
       position: absolute;
@@ -281,66 +282,71 @@
       </svg>
       <span class="nav-wordmark">Klaedon</span>
     </a>
-    <a class="nav-cta" href="#waitlist" data-request-access-trigger>Request Access</a>
+    <a class="nav-cta" href="#waitlist" data-request-access-trigger>REQUEST ACCESS</a>
   </nav>
 
   <section id="hero">
     <canvas id="flow-canvas" aria-hidden="true"></canvas>
 
     <div id="col-left">
-      <h1 class="hero-headline">
-        <span class="hero-nowrap">Turning market signals</span><br />
-        <span class="hero-nowrap">into trading decisions.</span>
-      </h1>
+      <div class="hero-copy-group">
+       <h1 class="hero-headline">
+  <span>Most traders are losing in this market.</span>
+  <span>You’re trading the wrong names.</span>
+</h1>
 
-      <p class="hero-subline">
-        Klaedon is designed to reduce broad market activity into a smaller set of decision-ready outputs.
+        <p class="hero-subline">
+           Klaedon is designed to show you what actually deserves risk today, so you stop forcing trades in the wrong market.
       </p>
 
-      <a class="cta-primary" href="#waitlist" data-request-access-trigger>
-        Request Access
-        <span class="cta-arrow">
-          <span class="arr-line"></span>
-          <span class="arr-head"></span>
-        </span>
-      </a>
+        <div class="hero-actions">
+          <a class="cta-primary" href="#waitlist" data-request-access-trigger>
+            REQUEST ACCESS
+            <span class="cta-arrow">
+              <span class="arr-line"></span>
+              <span class="arr-head"></span>
+            </span>
+          </a>
+
+        </div>
+      </div>
     </div>
 
     <div id="col-right"></div>
   </section>
 
-  <div id="system-intelligence-strip" role="region" aria-label="System Intelligence">
+  <div id="system-intelligence-strip" role="region" aria-label="Market filter summary">
     <div class="si-label">
-      <div class="si-label-top">
-        <span class="si-label-dot" aria-hidden="true"></span>
-        <span class="si-label-text">System&nbsp;Intelligence</span>
-      </div>
+    <div class="si-label-top">
+  <span class="si-label-dot" aria-hidden="true"></span>
+  <span class="si-label-text">What Klaedon tells you before you trade</span>
+</div>
     </div>
 
     <div class="si-grid">
       <div class="si-item">
-        <div class="si-item-top">NSE Equity Coverage</div>
-        <div class="si-item-bottom">2,781+ listed equities monitored</div>
+        <div class="si-item-top">Market Condition</div>
+        <div class="si-item-bottom">Whether the environment is supportive, weak, or not worth pressing</div>
       </div>
 
       <div class="si-item">
-        <div class="si-item-top">Signal Review</div>
-        <div class="si-item-bottom">broad market condition assessment</div>
+        <div class="si-item-top">What's Working</div>
+        <div class="si-item-bottom">The setups the market is actually rewarding right now</div>
       </div>
 
       <div class="si-item">
-        <div class="si-item-top">Market Structure</div>
-        <div class="si-item-bottom">regime and liquidity analysis</div>
+        <div class="si-item-top">What To Avoid</div>
+        <div class="si-item-bottom">The trades most likely to fail in current conditions</div>
       </div>
 
       <div class="si-item">
-        <div class="si-item-top">Participation Analysis</div>
-        <div class="si-item-bottom">institutional flow monitoring</div>
+        <div class="si-item-top">Participation</div>
+        <div class="si-item-bottom">Where real opportunity is showing up — and where it isn't</div>
       </div>
     </div>
 
     <div class="si-scope">
-      <span class="si-scope-text">NSE · BSE<br />India</span>
+      <span class="si-scope-text">1500+<br />NSE stocks</span>
     </div>
   </div>
 
@@ -351,36 +357,37 @@
       </div>
 
       <div class="di-content">
-        <div class="di-label reveal">Decision Engine</div>
+        <div class="di-label reveal">The Problem</div>
         <h2 class="di-title reveal reveal-delay-1">
-          How the system turns signals into decisions
+          Breakouts are failing.<br />Strong stocks aren't following through.<br />You enter — and get trapped.
         </h2>
         <p class="di-intro reveal reveal-delay-2">
-          Klaedon monitors broad market activity, organises relevant signals, and compresses complexity into a smaller set of actionable opportunities.
+          <strong>This isn't a skill issue.</strong><br />It's a market condition problem.
         </p>
+        <p class="di-row-desc reveal reveal-delay-2">This is where most traders slowly bleed capital without realizing what's actually wrong.</p>
 
         <div class="di-process reveal reveal-delay-3">
-          <div class="di-row">
+          <div class="di-row di-row-highlight">
             <span class="di-row-num">01</span>
             <div class="di-row-content">
-              <div class="di-row-title">Signal Intake</div>
-              <div class="di-row-desc">Market activity across thousands of stocks is continuously observed and filtered for relevance.</div>
+              <div class="di-row-title">Even decent entries fail when the market isn't backing them.</div>
+              <div class="di-row-desc">You can do everything right and still lose money if the market isn't supporting your trades.</div>
             </div>
           </div>
 
           <div class="di-row">
             <span class="di-row-num">02</span>
             <div class="di-row-content">
-              <div class="di-row-title">Signal Interpretation</div>
-              <div class="di-row-desc">Multiple structural conditions are evaluated together to determine directional alignment and quality.</div>
+              <div class="di-row-title">Most traders keep tweaking entries when the real problem is the environment.</div>
+              <div class="di-row-desc">The issue is not always your trigger. Sometimes the market itself is the trap.</div>
             </div>
           </div>
 
           <div class="di-row">
             <span class="di-row-num">03</span>
             <div class="di-row-content">
-              <div class="di-row-title">Decision Compression</div>
-              <div class="di-row-desc">Only the strongest opportunities remain after the system reduces noise and resolves competing signals.</div>
+              <div class="di-row-title">The market can stay weak longer than traders stay patient.</div>
+              <div class="di-row-desc">That is exactly when forced trades start doing the most damage.</div>
             </div>
           </div>
         </div>
@@ -391,36 +398,36 @@
   <section id="section-pl">
     <div class="pl-inner shell">
       <div class="pl-header section-header-grid">
-        <div class="pl-label reveal">Product Layer</div>
+        <div class="pl-label reveal">The Shift</div>
         <div>
-          <h2 class="pl-heading reveal reveal-delay-1">What the system delivers</h2>
-          <p class="pl-intro reveal reveal-delay-2">Klaedon is designed as a structured decision-intelligence layer. Each product surface supports a different part of the decision process, from daily preparation to historical context and discipline.</p>
+          <h2 class="pl-heading reveal reveal-delay-1">Most traders focus on entries. The real edge is knowing when not to trade.</h2>
+          <p class="pl-intro reveal reveal-delay-2">Klaedon is not built to flood you with ideas. It is built to make you more selective, more aligned, and harder to trap.</p>
         </div>
       </div>
 
       <div class="pl-grid reveal reveal-delay-3">
         <div class="pl-block">
           <div class="pl-block-num">01</div>
-          <div class="pl-block-title">Klaedon Next</div>
-          <p class="pl-block-desc">Daily intelligence briefing. A concise, structured read on what the system is seeing before the session begins.</p>
+          <div class="pl-block-title">What to trade</div>
+          <p class="pl-block-desc">The setups the market is still rewarding instead of the ones traders keep forcing.</p>
         </div>
 
         <div class="pl-block">
           <div class="pl-block-num">02</div>
-          <div class="pl-block-title">Trade Ready</div>
-          <p class="pl-block-desc">High-probability opportunities. A prioritised output of setups that meet the system's full evaluation criteria.</p>
+          <div class="pl-block-title">What to avoid</div>
+          <p class="pl-block-desc">The trades most likely to fail in current market conditions.</p>
         </div>
 
         <div class="pl-block">
           <div class="pl-block-num">03</div>
-          <div class="pl-block-title">Intelligence Database</div>
-          <p class="pl-block-desc">Historical setup reliability. A structured record of how similar conditions have resolved across prior market cycles.</p>
+          <div class="pl-block-title">Whether your strategy is supported</div>
+          <p class="pl-block-desc">A direct read on whether the current market even backs the style you want to trade.</p>
         </div>
 
         <div class="pl-block">
           <div class="pl-block-num">04</div>
-          <div class="pl-block-title">Portfolio Discipline</div>
-          <p class="pl-block-desc">Track adherence to the system. A structured layer that measures decision quality against defined process standards.</p>
+          <div class="pl-block-title">When to stay selective</div>
+          <p class="pl-block-desc">Because avoiding low-probability trades is part of the edge, not a failure to act.</p>
         </div>
       </div>
     </div>
@@ -429,56 +436,145 @@
   <section id="section-wm">
     <div class="wm-inner shell">
       <div class="wm-header section-header-grid">
-        <div class="wm-label reveal">Why It Matters</div>
+        <div class="wm-label reveal">The Product</div>
         <div>
-          <h2 class="wm-heading reveal reveal-delay-1">Built for disciplined market preparation.</h2>
-          <p class="wm-intro reveal reveal-delay-2">Designed to reduce research complexity into a smaller set of decision-ready outputs.</p>
-        </div>
+<h2 class="wm-heading reveal reveal-delay-1">You do not need 1500 charts.<br />You need a clear read on<br />what deserves risk today.</h2>        </div>
       </div>
 
       <div class="wm-grid grid-3-bordered reveal reveal-delay-3">
         <div class="wm-col grid-col-bordered">
-          <div class="wm-col-title">Built for preparation</div>
-          <p class="wm-col-body">Designed to narrow broad market activity into a smaller set of decision-ready outputs before the session begins.</p>
+          <div class="wm-col-title">Market condition</div>
+          <p class="wm-col-body">A clear read on whether conditions are supportive, weak, or not worth pressing.</p>
         </div>
 
         <div class="wm-col grid-col-bordered">
-          <div class="wm-col-title">Built for consistency</div>
-          <p class="wm-col-body">A structured review process helps reduce noise and supports more disciplined market evaluation.</p>
+          <div class="wm-col-title">Working vs failing setups</div>
+          <p class="wm-col-body">A direct read on what is getting follow-through and what keeps breaking down.</p>
         </div>
 
         <div class="wm-col grid-col-bordered">
-          <div class="wm-col-title">Built for clarity</div>
-          <p class="wm-col-body">The system is designed to surface what matters, remove what does not, and preserve interpretability.</p>
+          <div class="wm-col-title">Participation</div>
+          <p class="wm-col-body">Where real opportunity exists — instead of where traders are forcing action.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="section-wif">
+  <section id="section-example">
+    <div class="ep-wrap">
+
+      <!-- Left: image viewer -->
+      <div class="ep-viewer" id="ep-viewer">
+        <div class="ep-img-stage">
+          <img
+            src="assets/screenshots/screenshot-1.jpg"
+            alt="Market Call: No trades today. The market is not rewarding risk."
+            class="ep-img is-active"
+            data-index="0"
+          />
+          <img
+            src="assets/screenshots/screenshot-2.jpg"
+            alt="System Snapshot: regime, qualifiers, breadth, and session summary."
+            class="ep-img"
+            data-index="1"
+          />
+          <img
+            src="assets/screenshots/screenshot-3.jpg"
+            alt="Leadership Proof: actual names dropped, key drivers, and leadership loss."
+            class="ep-img"
+            data-index="2"
+          />
+        </div>
+        <button class="ep-expand" id="ep-expand" type="button" aria-label="View full screenshot">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <path d="M1 1h4M1 1v4M12 1h-4M12 1v4M1 12h4M1 12v-4M12 12h-4M12 12v-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Right: content + selectors -->
+      <div class="ep-panel">
+        <div class="ep-label reveal">Example</div>
+        <h2 class="ep-heading reveal reveal-delay-1">What you should see before you trade</h2>
+        <p class="ep-intro reveal reveal-delay-2">If you're not seeing this before you trade, you're trading blind.</p>
+        <p class="ep-intro-sub reveal reveal-delay-2">You do not need a market essay. You need a clear read on what to avoid, where opportunity is, and how aggressive to be.</p>
+        <p class="ep-meta reveal reveal-delay-2">Generated from a full-market scan, not a single-stock opinion.</p>
+
+        <div class="ep-selectors reveal reveal-delay-3" role="tablist" aria-label="Product proof views">
+          <button class="ep-sel is-active" role="tab" type="button" aria-selected="true" data-index="0">
+            <div class="ep-sel-accent" aria-hidden="true"></div>
+            <div class="ep-sel-body">
+              <div class="ep-sel-head">
+                <span class="ep-sel-num" aria-hidden="true">01</span>
+                <span class="ep-sel-title">Market Call</span>
+              </div>
+              <p class="ep-sel-desc">See the exact market call, posture, and what to do tomorrow.</p>
+            </div>
+          </button>
+          <button class="ep-sel" role="tab" type="button" aria-selected="false" data-index="1">
+            <div class="ep-sel-accent" aria-hidden="true"></div>
+            <div class="ep-sel-body">
+              <div class="ep-sel-head">
+                <span class="ep-sel-num" aria-hidden="true">02</span>
+                <span class="ep-sel-title">System Snapshot</span>
+              </div>
+              <p class="ep-sel-desc">See the regime, qualifiers, breadth, and session summary.</p>
+            </div>
+          </button>
+          <button class="ep-sel" role="tab" type="button" aria-selected="false" data-index="2">
+            <div class="ep-sel-accent" aria-hidden="true"></div>
+            <div class="ep-sel-body">
+              <div class="ep-sel-head">
+                <span class="ep-sel-num" aria-hidden="true">03</span>
+                <span class="ep-sel-title">Leadership Proof</span>
+              </div>
+              <p class="ep-sel-desc">See actual names dropped, key drivers, and leadership loss.</p>
+            </div>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Lightbox -->
+    <div class="ep-lightbox" id="ep-lightbox" role="dialog" aria-modal="true" aria-label="Screenshot expanded" hidden>
+      <div class="ep-lb-backdrop" id="ep-lb-backdrop"></div>
+      <div class="ep-lb-inner">
+        <img src="" alt="" class="ep-lb-img" id="ep-lb-img" />
+        <button class="ep-lb-close" id="ep-lb-close" type="button" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="section-wif" aria-labelledby="wif-heading">
     <div class="wif-inner shell">
       <div class="wif-header section-header-grid">
-        <div class="wif-label reveal">Who It's For</div>
+        <div class="wif-label reveal">This is not for everyone.</div>
         <div>
-          <h2 class="wif-heading reveal reveal-delay-1">Built for users who value structure before execution.</h2>
-          <p class="wif-intro reveal reveal-delay-2">Klaedon is designed for market participants who prefer disciplined review, interpretability, and preparation over noise.</p>
+          <h2 class="wif-heading reveal reveal-delay-1" id="wif-heading">Klaedon is for traders who want to trade with the market, not argue with it.</h2>
+          <p class="wif-intro reveal reveal-delay-2">Klaedon is for traders who want to align with the market instead of fighting it.</p>
         </div>
       </div>
 
       <div class="wif-grid grid-3-bordered reveal reveal-delay-3">
         <div class="wif-col grid-col-bordered">
-          <div class="wif-col-title">Independent traders</div>
-          <p class="wif-col-body">Use Klaedon to reduce research load and focus attention on a smaller set of decision-ready opportunities.</p>
+          <div class="wif-col-title">Not for tip seekers</div>
+          <p class="wif-col-body">If you want constant stock ideas and random excitement, this will frustrate you.</p>
         </div>
 
         <div class="wif-col grid-col-bordered">
-          <div class="wif-col-title">Systematic decision-makers</div>
-          <p class="wif-col-body">Designed for users who value process, repeatability, and a more structured approach to market evaluation.</p>
+          <div class="wif-col-title">Not for overtraders</div>
+          <p class="wif-col-body">This is built to make you more selective, not more active for the sake of feeling productive.</p>
         </div>
 
         <div class="wif-col grid-col-bordered">
-          <div class="wif-col-title">Preparation-first operators</div>
-          <p class="wif-col-body">Built for those who want clearer pre-trade context and better filtering before execution decisions are made.</p>
+          <div class="wif-col-title">For disciplined traders</div>
+          <p class="wif-col-body">The value is in staying aligned with the market so you stop forcing low-probability trades.</p>
         </div>
       </div>
     </div>
@@ -486,12 +582,12 @@
 
   <section id="section-cta" aria-labelledby="waitlist-heading">
     <div id="waitlist" class="cta-inner shell--cta">
-      <div class="cta-section-label reveal">Early Access</div>
-      <h2 id="waitlist-heading" class="cta-heading reveal reveal-delay-1">Request access to Klaedon</h2>
-      <p class="cta-sub reveal reveal-delay-2">A disciplined intelligence layer for traders who value clarity over noise.</p>
+      <div class="cta-section-label reveal">Before You Trade</div>
+      <h2 id="waitlist-heading" class="cta-heading reveal reveal-delay-1">Stop trading blindly.</h2>
+      <p class="cta-sub reveal reveal-delay-2">See what the market is actually rewarding before you take your next trade.</p>
 
       <a class="cta-btn reveal reveal-delay-3" href="#waitlist" data-request-access-trigger>
-        Request Access
+        REQUEST ACCESS
         <span class="cta-btn-arrow">
           <span class="cta-btn-line"></span>
           <span class="cta-btn-head"></span>
@@ -502,7 +598,7 @@
 
   <footer id="footer">
     <span class="footer-mark">Klaedon</span>
-    <span class="footer-copy">© 2026 · Decision Intelligence · NSE · BSE · India</span>
+    <span class="footer-copy">© 2026 · Turning market signals into trading decisions · NSE · India</span>
   </footer>
 
   <div id="request-access-modal" class="request-access-modal" aria-hidden="true" hidden>
@@ -520,69 +616,69 @@
       </button>
 
       <div class="request-access-header">
-        <h2 id="request-access-title">Request access to Klaedon</h2>
+        <h2 id="request-access-title">REQUEST ACCESS</h2>
         <p id="request-access-desc">
-          A disciplined decision-intelligence layer for traders who value clarity over noise.
+          See what's working, what to avoid, and whether the market is even supporting your setup.
         </p>
       </div>
 
       <div class="request-access-body">
         <form id="request-access-form" class="request-access-form" novalidate>
-  <div class="request-access-field">
-    <label for="request-access-email">Email address</label>
-    <input
-      id="request-access-email"
-      name="email"
-      type="email"
-      autocomplete="email"
-      required
-      aria-describedby="request-access-email-error"
-    />
-    <p id="request-access-email-error" class="request-access-error" role="alert" hidden></p>
-  </div>
+          <div class="request-access-field">
+            <label for="request-access-email">Email address</label>
+            <input
+              id="request-access-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              aria-describedby="request-access-email-error"
+            />
+            <p id="request-access-email-error" class="request-access-error" role="alert" hidden></p>
+          </div>
 
-  <div class="request-access-field">
-    <label for="request-access-role">What best describes you? <span style="font-weight:400; color:#64748b;">(optional)</span></label>
-    <select id="request-access-role" name="role">
-      <option value="">Select an option</option>
-      <option value="independent-trader">Independent trader</option>
-      <option value="systematic-trader">Systematic trader</option>
-      <option value="research-driven-operator">Research-driven operator</option>
-      <option value="other">Other</option>
-    </select>
-  </div>
+          <div class="request-access-field">
+            <label for="request-access-role">What best describes you? <span style="font-weight:400; color:#64748b;">(optional)</span></label>
+            <select id="request-access-role" name="role">
+              <option value="">Select an option</option>
+              <option value="independent-trader">Independent trader</option>
+              <option value="systematic-trader">Systematic trader</option>
+              <option value="research-driven-operator">Research-driven operator</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
 
-  <div class="request-access-honeypot" aria-hidden="true">
-    <label for="request-access-honeypot">Leave this field empty</label>
-    <input
-      id="request-access-honeypot"
-      name="honeypot"
-      type="text"
-      tabindex="-1"
-      autocomplete="off"
-    />
-  </div>
+          <div class="request-access-honeypot" aria-hidden="true">
+            <label for="request-access-honeypot">Leave this field empty</label>
+            <input
+              id="request-access-honeypot"
+              name="honeypot"
+              type="text"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
 
-  <div class="request-access-field">
-    <label class="request-access-consent" for="request-access-consent">
-      <input
-        id="request-access-consent"
-        name="consent"
-        type="checkbox"
-        value="true"
-        aria-describedby="request-access-consent-error"
-      />
-      <span>I agree to be contacted about Klaedon early access.</span>
-    </label>
-    <p id="request-access-consent-error" class="request-access-error" role="alert" hidden></p>
-  </div>
+          <div class="request-access-field">
+            <label class="request-access-consent" for="request-access-consent">
+              <input
+                id="request-access-consent"
+                name="consent"
+                type="checkbox"
+                value="true"
+                aria-describedby="request-access-consent-error"
+              />
+              <span>I agree to be contacted about Klaedon early access.</span>
+            </label>
+            <p id="request-access-consent-error" class="request-access-error" role="alert" hidden></p>
+          </div>
 
-  <p id="request-access-form-message" class="request-access-form-message" role="status" hidden></p>
+          <p id="request-access-form-message" class="request-access-form-message" role="status" hidden></p>
 
-  <button type="submit" class="request-access-submit">
-    Submit Request
-  </button>
-</form>
+          <button type="submit" class="request-access-submit">
+            Get Access
+          </button>
+        </form>
       </div>
     </div>
   </div>
@@ -614,35 +710,35 @@
           <input id="feedback-lead-id" name="lead_id" type="hidden" />
 
           <fieldset class="feedback-field feedback-fieldset">
-  <legend>What would make the daily briefing most useful to you?</legend>
-  <div class="feedback-options">
-    <label class="feedback-option">
-      <input type="checkbox" name="top_needs" value="market-direction-read" />
-      <span>Clear market direction read</span>
-    </label>
-    <label class="feedback-option">
-      <input type="checkbox" name="top_needs" value="high-quality-setups" />
-      <span>Only the best setups</span>
-    </label>
-    <label class="feedback-option">
-      <input type="checkbox" name="top_needs" value="pre-market-preparation" />
-      <span>Better pre-market prep</span>
-    </label>
-    <label class="feedback-option">
-      <input type="checkbox" name="top_needs" value="less-noise-more-focus" />
-      <span>Less noise, more focus</span>
-    </label>
-    <label class="feedback-option">
-      <input type="checkbox" name="top_needs" value="market-regime-context" />
-      <span>Market regime context</span>
-    </label>
-    <label class="feedback-option">
-      <input type="checkbox" name="top_needs" value="repeatable-daily-process" />
-      <span>More repeatable daily process</span>
-    </label>
-  </div>
-  <p id="feedback-top-needs-error" class="feedback-error" role="alert" hidden></p>
-</fieldset>
+            <legend>What would make the daily briefing most useful to you?</legend>
+            <div class="feedback-options">
+              <label class="feedback-option">
+                <input type="checkbox" name="top_needs" value="market-direction-read" />
+                <span>Clear market direction read</span>
+              </label>
+              <label class="feedback-option">
+                <input type="checkbox" name="top_needs" value="high-quality-setups" />
+                <span>Only the best setups</span>
+              </label>
+              <label class="feedback-option">
+                <input type="checkbox" name="top_needs" value="pre-market-preparation" />
+                <span>Better pre-market prep</span>
+              </label>
+              <label class="feedback-option">
+                <input type="checkbox" name="top_needs" value="less-noise-more-focus" />
+                <span>Less noise, more focus</span>
+              </label>
+              <label class="feedback-option">
+                <input type="checkbox" name="top_needs" value="market-regime-context" />
+                <span>Market regime context</span>
+              </label>
+              <label class="feedback-option">
+                <input type="checkbox" name="top_needs" value="repeatable-daily-process" />
+                <span>More repeatable daily process</span>
+              </label>
+            </div>
+            <p id="feedback-top-needs-error" class="feedback-error" role="alert" hidden></p>
+          </fieldset>
 
           <fieldset class="feedback-field feedback-fieldset">
             <legend>Preferred delivery method</legend>
@@ -707,5 +803,9 @@
   </div>
 
   <script type="module" src="scripts/main.js"></script>
+  <script type="module">
+    import { initExampleProof } from "./scripts/proof-block.js";
+    initExampleProof();
+  </script>
 </body>
 </html>

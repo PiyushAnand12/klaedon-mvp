@@ -1,0 +1,385 @@
+/* ════════════════════════════════════════════
+   EXAMPLE SECTION — production-grade proof module
+════════════════════════════════════════════ */
+
+#section-example {
+  padding: clamp(80px, 11vh, 140px) var(--gutter);
+  border-bottom: 1.5px solid var(--rule);
+  background: var(--surface);
+}
+
+/* ══ 2-col open grid ──────────────────────── */
+.ep-wrap {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 62fr 38fr;
+  gap: clamp(48px, 5.5vw, 80px);
+  align-items: start;
+}
+
+/* ══ LEFT — screenshot frame ──────────────── */
+.ep-viewer {
+  position: relative;
+  width: 100%;
+  margin-top: clamp(32px, 4.5vh, 56px);
+}
+
+.ep-img-stage {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  box-shadow:
+    0 1px 3px rgba(26, 58, 110, 0.06),
+    0 4px 16px rgba(26, 58, 110, 0.08);
+}
+
+/* All images sit in the frame, transitions handle switching */
+.ep-img {
+  position: absolute;
+  top: 4%;
+  left: 0;
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.38s ease;
+  pointer-events: none;
+  user-select: none;
+  vertical-align: top;
+}
+
+.ep-img.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Outgoing image fades away */
+.ep-img.is-leaving {
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.ep-img.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+
+/* ══ Expand button ────────────────────────── */
+/* Invisible spacer — holds frame height */
+.ep-img-stage::before {
+  content: '';
+  display: block;
+  width: 100%;
+  /* Matches screenshot-1 natural aspect ratio ~1132×600 ≈ 53% */
+  padding-top: 72%;
+}
+
+/* Second image (System Snapshot) — centred both axes in frame */
+.ep-img[data-index="1"] {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Third image (Leadership Proof) — restore to original top-left position */
+.ep-img[data-index="2"] {
+  top: 0;
+  left: 0;
+  transform: none;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+}
+
+/* Expand button */
+.ep-expand {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--rule);
+  color: var(--text-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.ep-expand:hover {
+  background: var(--bg);
+  color: var(--text);
+  border-color: var(--text);
+}
+
+/* ══ RIGHT — content panel ────────────────── */
+.ep-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label */
+.ep-label {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-top: 7px;
+  border-top: 1.5px solid var(--gold);
+  margin-bottom: clamp(18px, 2.4vh, 26px);
+}
+
+/* Heading */
+.ep-heading {
+  font-family: var(--font-sans);
+  font-size: clamp(28px, 2.6vw, 40px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  color: var(--text);
+  margin-bottom: clamp(16px, 2vh, 24px);
+}
+
+/* Intro */
+.ep-intro {
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 1.2vw, 18px);
+  font-weight: 400;
+  line-height: 1.68;
+  color: var(--text-2);
+  margin: 0 0 10px;
+}
+
+.ep-intro-sub {
+  font-family: var(--font-sans);
+  font-size: clamp(15px, 1.1vw, 17px);
+  font-weight: 300;
+  line-height: 1.72;
+  color: var(--text-2);
+  margin: 0 0 10px;
+}
+
+/* Meta line */
+.ep-meta {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.58;
+  color: var(--text-3);
+  opacity: 0.8;
+  margin: 0 0 clamp(28px, 3.8vh, 44px);
+}
+
+/* ══ Selector stack ───────────────────────── */
+.ep-selectors {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--rule);
+}
+
+.ep-sel {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid var(--rule-faint);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.22s ease;
+  width: 100%;
+}
+
+.ep-sel:last-child {
+  border-bottom: none;
+}
+
+.ep-sel:hover {
+  background: rgba(26, 58, 110, 0.018);
+}
+
+.ep-sel.is-active {
+  background: rgba(26, 58, 110, 0.034);
+}
+
+.ep-sel-accent {
+  flex-shrink: 0;
+  width: 2px;
+  background: var(--primary);
+  opacity: 0;
+  transition: opacity 0.2s;
+  align-self: stretch;
+}
+
+.ep-sel.is-active .ep-sel-accent {
+  opacity: 1;
+}
+
+.ep-sel-body {
+  flex: 1;
+  padding: clamp(16px, 2vh, 22px) clamp(16px, 1.6vw, 20px);
+}
+
+.ep-sel-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.ep-sel-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  color: var(--text-3);
+  line-height: 1;
+  transition: color 0.18s;
+  flex-shrink: 0;
+}
+
+.ep-sel.is-active .ep-sel-num {
+  color: var(--primary);
+}
+
+.ep-sel-title {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--text);
+  transition: color 0.18s;
+}
+
+.ep-sel.is-active .ep-sel-title {
+  color: var(--primary);
+}
+
+.ep-sel-desc {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.62;
+  color: var(--text-3);
+  margin: 0;
+  transition: color 0.18s;
+}
+
+.ep-sel.is-active .ep-sel-desc {
+  color: var(--text-2);
+}
+
+/* ══ Lightbox ─────────────────────────────── */
+.ep-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.26s ease;
+}
+
+.ep-lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ep-lightbox[hidden] {
+  display: none !important;
+}
+
+.ep-lb-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 14, 26, 0.76);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+}
+
+.ep-lb-inner {
+  position: relative;
+  z-index: 1;
+  max-width: min(96vw, 1280px);
+  max-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ep-lb-img {
+  display: block;
+  max-width: 100%;
+  max-height: 88vh;
+  object-fit: contain;
+}
+
+.ep-lb-close {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 34px;
+  height: 34px;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.ep-lb-close:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* ══ Responsive ───────────────────────────── */
+@media (max-width: 900px) {
+  .ep-wrap {
+    grid-template-columns: 1fr;
+    gap: clamp(36px, 5vh, 52px);
+  }
+
+  .ep-panel {
+    order: 1;
+  }
+
+  .ep-viewer {
+    order: 2;
+  }
+
+  .ep-heading {
+    font-size: clamp(22px, 4.2vw, 32px);
+  }
+}
+
+@media (max-width: 480px) {
+  #section-example {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+
+  .ep-sel-desc {
+    display: none;
+  }
+}

@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KLAEDON — Evening Brief</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --surface: #f7f7f4;
+      --card: #ffffff;
+      --text: #16345f;
+      --text-strong: #102947;
+      --muted: #5f6b7a;
+      --border: #d8dde3;
+      --border-soft: #e8ebef;
+      --accent: #c5a46d;
+      --accent-soft: rgba(197,164,109,.10);
+      --accent-border: rgba(197,164,109,.34);
+      --red: #9f4446;
+      --red-soft: rgba(159,68,70,.08);
+      --red-border: rgba(159,68,70,.18);
+      --amber: #9c7a28;
+      --amber-soft: rgba(156,122,40,.08);
+      --amber-border: rgba(156,122,40,.18);
+      --green: #2f6b4f;
+      --green-soft: rgba(47,107,79,.08);
+      --green-border: rgba(47,107,79,.18);
+      --shadow: 0 10px 30px rgba(16,41,71,.04);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 32px 24px 72px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 22px;
+      margin-bottom: 24px;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--text-strong);
+    }
+
+    .brand-logo {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      border-top: 2.2px solid var(--text-strong);
+      border-right: 2.2px solid var(--text-strong);
+      transform: rotate(45deg) skew(-8deg,-8deg);
+      margin-right: 2px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      color: var(--text-strong);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(197,164,109,0), rgba(197,164,109,.55), rgba(197,164,109,0));
+    }
+
+    .hero-main {
+      background: linear-gradient(180deg, rgba(159,68,70,.05), rgba(159,68,70,.015));
+      border-color: rgba(159,68,70,.16);
+      padding: 30px;
+    }
+
+    .eyebrow, .section-kicker {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin-top: 12px;
+      font-size: 46px;
+      line-height: 1.02;
+      letter-spacing: -1.6px;
+      color: var(--text-strong);
+      max-width: 720px;
+    }
+
+    .hero-sub {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 680px;
+    }
+
+    .signal-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .signal-pill, .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-strong);
+    }
+
+    .signal-pill.red, .pill.red { background: var(--red-soft); border-color: var(--red-border); color: var(--red); }
+    .signal-pill.amber, .pill.amber { background: var(--amber-soft); border-color: var(--amber-border); color: var(--amber); }
+    .signal-pill.green, .pill.green { background: var(--green-soft); border-color: var(--green-border); color: var(--green); }
+    .signal-pill.gold, .pill.gold, .pill.purple { background: var(--accent-soft); border-color: var(--accent-border); color: var(--text-strong); }
+
+    .hero-side {
+      display: grid;
+      gap: 16px;
+    }
+
+    .quick-box-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .quick-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .quick-item {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--text-strong);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .quick-item .mark {
+      font-weight: 800;
+      color: var(--red);
+    }
+
+    .callout {
+      background: linear-gradient(180deg, rgba(197,164,109,.10), rgba(197,164,109,.03));
+      border-color: var(--accent-border);
+    }
+
+    .callout strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1.05;
+      letter-spacing: -.8px;
+      color: var(--text-strong);
+      margin-top: 8px;
+    }
+
+    .callout p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid-4, .grid-3, .grid-2 {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .grid-2 { grid-template-columns: 1.02fr .98fr; }
+
+    .section { margin-top: 18px; }
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+      color: var(--text-strong);
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: -4px;
+      margin-bottom: 12px;
+    }
+
+    .kpi-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .kpi-value {
+      color: var(--text-strong);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -.9px;
+      margin-bottom: 4px;
+    }
+
+    .kpi-foot { color: var(--muted); font-size: 13px; }
+
+    .brief-card {
+      background: linear-gradient(180deg, rgba(197,164,109,.10), rgba(197,164,109,.035));
+      border: 1px solid var(--accent-border);
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 8px;
+    }
+
+    .brief-card p { color: var(--text); font-size: 15px; line-height: 1.8; }
+
+    .decision-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .decision-box {
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 16px;
+      background: var(--surface);
+    }
+
+    .decision-box h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .decision-box p {
+      color: var(--text-strong);
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    .list { display: flex; flex-direction: column; gap: 10px; }
+
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .list-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .list-item:first-child { padding-top: 0; }
+
+    .item-left { min-width: 0; flex: 1; }
+    .item-title { color: var(--text-strong); font-weight: 700; font-size: 15px; margin-bottom: 2px; }
+    .item-sub { color: var(--muted); font-size: 13px; }
+
+    .item-right {
+      min-width: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .item-right.muted { color: var(--muted); font-weight: 700; }
+
+    .score-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--border);
+      color: var(--text-strong);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .tier {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    details.expandable {
+      border-top: 1px solid var(--border-soft);
+      margin-top: 10px;
+      padding-top: 10px;
+    }
+
+    details.expandable summary {
+      list-style: none;
+      cursor: pointer;
+      color: var(--text-strong);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+
+    details.expandable summary::-webkit-details-marker { display: none; }
+
+    .chev { display: inline-block; transition: transform .18s ease; color: var(--accent); }
+    details[open] .chev { transform: rotate(90deg); }
+
+    .stock-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .heatmap {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0,1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .heat-cell {
+      border-radius: 16px;
+      padding: 14px 12px;
+      border: 1px solid var(--border);
+      min-height: 82px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .heat-cell.strong { background: linear-gradient(180deg, rgba(47,107,79,.10), rgba(47,107,79,.03)); }
+    .heat-cell.mid { background: linear-gradient(180deg, rgba(22,52,95,.08), rgba(22,52,95,.025)); }
+    .heat-cell.weak { background: linear-gradient(180deg, rgba(159,68,70,.08), rgba(159,68,70,.025)); }
+
+    .heat-title { color: var(--text-strong); font-size: 13px; font-weight: 700; line-height: 1.3; }
+    .heat-sub { color: var(--muted); font-size: 11px; }
+
+    .spark {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 120px;
+      padding-top: 10px;
+    }
+
+    .spark-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .spark-bar {
+      width: 100%;
+      border-radius: 12px 12px 6px 6px;
+      background: linear-gradient(180deg, rgba(22,52,95,.92), rgba(22,52,95,.40));
+      min-height: 10px;
+    }
+
+    .spark-label { color: var(--muted); font-size: 11px; }
+    .spark-val { color: var(--text-strong); font-size: 11px; font-weight: 700; }
+    .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
+
+    .footer {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .grid-4,
+      .grid-3,
+      .grid-2,
+      .heatmap,
+      .decision-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 { font-size: 32px; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+      .item-right { min-width: unset; }
+      .hero-main { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand"><span class="brand-logo" aria-hidden="true"></span><span>KLAEDON</span></div>
+      <div class="tag">Evening Brief • March 18, 2026</div>
+    </div>
+
+    <section class="hero">
+      <div class="card hero-main">
+        <div class="eyebrow">Decision First</div>
+        <h1>No trades today. The market is not rewarding risk.</h1>
+        <p class="hero-sub">
+          Zero qualified setups, 47 leaders dropped out, and breadth fully broke down.
+          This is a defensive tape, not a market for forced exposure.
+        </p>
+        <div class="signal-row">
+          <span class="signal-pill red">0 qualified setups</span>
+          <span class="signal-pill red">47 leaders dropped</span>
+          <span class="signal-pill amber">breadth collapsed</span>
+          <span class="signal-pill gold">posture: defensive</span>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <div class="card">
+          <div class="quick-box-title">What to do tomorrow</div>
+          <div class="quick-list">
+            <div class="quick-item"><span class="mark">✕</span><span>Avoid breakout trades.</span></div>
+            <div class="quick-item"><span class="mark">✕</span><span>Do not chase isolated strength.</span></div>
+            <div class="quick-item"><span class="mark">•</span><span>Preserve capital and stay selective.</span></div>
+            <div class="quick-item"><span class="mark">•</span><span>Wait for breadth and fresh leadership to rebuild.</span></div>
+          </div>
+        </div>
+
+        <div class="card callout">
+          <div class="eyebrow">Final call</div>
+          <strong>Sit out. Patience is the trade.</strong>
+          <p>
+            This is not a session that rewards activity. The better move is to let the tape reset.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid-4">
+      <div class="card">
+        <div class="kpi-label">Market Tone</div>
+        <div class="kpi-value">Defensive</div>
+        <div class="kpi-foot">Participation narrowed sharply and no names held full qualification.</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">Market Regime</div>
+        <div class="kpi-value" style="font-size:24px;">Contraction</div>
+        <div class="kpi-foot">Breadth is below recent average and the qualification pool has collapsed.</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">Full Qualifiers</div>
+        <div class="kpi-value">0</div>
+        <div class="kpi-foot">No high-quality full setups cleared today.</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">Dropped Today</div>
+        <div class="kpi-value">47</div>
+        <div class="kpi-foot">A broad leadership unwind pushed net flow deeply negative.</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-kicker">Market Snapshot</div>
+      <div class="section-title">What changed today</div>
+      <div class="brief-card">
+        <span class="pill purple">Desk Summary</span>
+        <p>
+          The tape moved into a clear <b>contraction phase</b> today. There were <b>zero qualified setups</b>,
+          <b>47 names lost full qualification</b>, and breadth rolled over to zero. The useful takeaway is simple:
+          leadership deteriorated broadly, opportunity compressed sharply, and the market shifted from stock selection
+          to pure risk control.
+        </p>
+      </div>
+      <div class="decision-strip">
+        <div class="decision-box">
+          <h3>What failed</h3>
+          <p>Leadership broke down instead of rotating.</p>
+        </div>
+        <div class="decision-box">
+          <h3>What matters</h3>
+          <p>Fresh entries are not being supported right now.</p>
+        </div>
+        <div class="decision-box">
+          <h3>What to wait for</h3>
+          <p>Breadth rebound, new qualifiers, and returning sector leadership.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section grid-3">
+      <div class="card">
+        <span class="pill red">Primary Signal</span>
+        <div class="section-title" style="font-size:18px;margin-bottom:6px;">No Qualified Setups</div>
+        <p>No stocks met qualified, technical-only, or near-qualified status. Opportunity has compressed materially.</p>
+      </div>
+
+      <div class="card">
+        <span class="pill amber">Breadth Shift</span>
+        <div class="section-title" style="font-size:18px;margin-bottom:6px;">70 → 52 → 55 → 47 → 0</div>
+        <p>Recent breadth rolled over in stages before breaking completely today. This is contraction, not healthy consolidation.</p>
+      </div>
+
+      <div class="card">
+        <span class="pill red">Flow Signal</span>
+        <div class="section-title" style="font-size:18px;margin-bottom:6px;">-47 Net Change</div>
+        <p>With 47 names dropping and none entering, the session reflects broad erosion in leadership rather than isolated weakness.</p>
+      </div>
+    </section>
+
+    <section class="section grid-2">
+      <div class="card">
+        <div class="section-kicker">Recent Leadership</div>
+        <div class="section-title" style="font-size:17px;margin-bottom:4px;">Leadership Breakdown</div>
+        <div class="section-sub">These names mattered recently, but none retained full qualification today.</div>
+        <div class="list">
+          <div class="list-item">
+            <div class="item-left">
+              <div class="item-title">MTARTECH</div>
+              <div class="item-sub">Recent industrial leader • no longer qualified today</div>
+            </div>
+            <div class="item-right">
+              <div class="score-pill">Dropped</div>
+              <div class="tier">Leadership Loss</div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="item-left">
+              <div class="item-title">GVT&amp;D</div>
+              <div class="item-sub">Recent industrial strength • no longer qualified today</div>
+            </div>
+            <div class="item-right">
+              <div class="score-pill">Dropped</div>
+              <div class="tier">Leadership Loss</div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="item-left">
+              <div class="item-title">SHARDACROP</div>
+              <div class="item-sub">Materials leadership previously visible • no longer qualified today</div>
+            </div>
+            <div class="item-right">
+              <div class="score-pill">Dropped</div>
+              <div class="tier">Leadership Loss</div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="item-left">
+              <div class="item-title">POLYCAB</div>
+              <div class="item-sub">Key cyclical/industrial participant • no longer qualified today</div>
+            </div>
+            <div class="item-right">
+              <div class="score-pill">Dropped</div>
+              <div class="tier">Leadership Loss</div>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="item-left">
+              <div class="item-title">TORNTPHARM</div>
+              <div class="item-sub">Defensive quality name • no longer qualified today</div>
+            </div>
+            <div class="item-right">
+              <div class="score-pill">Dropped</div>
+              <div class="tier">Leadership Loss</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-kicker">Key Drivers</div>
+        <div class="section-title" style="font-size:17px;margin-bottom:4px;">What matters next</div>
+        <div class="section-sub">This session is more useful as a risk filter than as a source of fresh ideas.</div>
+        <div class="list">
+          <div class="list-item">
+            <div class="item-left">
+              <div class="item-title">Qualification Collapse</div>
+              <div class="item-sub">No qualified, technical-only, or near-qualified names survived the filter.</div>
+              <details class="expandable" open>
+                <summary><span class="chev">▶</span>What that means</summary>
+                <div class="stock-chips">
+                  <span class="chip">No fresh entries</span>
+                  <span class="chip">Weak tape quality</span>
+                  <span class="chip">High selectivity</span>
+                </div>
+              </details>
+            </div>
+            <div class="item-right muted">0 names</div>
+          </div>
+
+          <div class="list-item">
+            <div class="item-left">
+              <div class="item-title">Leadership Breakdown</div>
+              <div class="item-sub">The session was defined by stocks losing qualification, not by new leadership forming.</div>
+              <details class="expandable">
+                <summary><span class="chev">▶</span>Sample names</summary>
+                <div class="stock-chips">
+                  <span class="chip">MTARTECH</span>
+                  <span class="chip">GVT&amp;D</span>
+                  <span class="chip">SHARDACROP</span>
+                  <span class="chip">BEL</span>
+                  <span class="chip">POLYCAB</span>
+                  <span class="chip">TORNTPHARM</span>
+                  <span class="chip">CCL</span>
+                  <span class="chip">VEDL</span>
+                </div>
+              </details>
+            </div>
+            <div class="item-right muted">47 dropped</div>
+          </div>
+
+          <div class="list-item">
+            <div class="item-left">
+              <div class="item-title">Risk Posture</div>
+              <div class="item-sub">When nothing qualifies, the correct interpretation is caution rather than creativity.</div>
+              <details class="expandable">
+                <summary><span class="chev">▶</span>Desk posture</summary>
+                <div class="stock-chips">
+                  <span class="chip">Preserve capital</span>
+                  <span class="chip">Reduce forcing</span>
+                  <span class="chip">Wait for expansion</span>
+                </div>
+              </details>
+            </div>
+            <div class="item-right muted">Defensive</div>
+          </div>
+
+          <div class="list-item">
+            <div class="item-left">
+              <div class="item-title">Next Trigger</div>
+              <div class="item-sub">The next useful signal is not a single stock — it is breadth rebuilding from here.</div>
+              <details class="expandable">
+                <summary><span class="chev">▶</span>Watch for</summary>
+                <div class="stock-chips">
+                  <span class="chip">Breadth rebound</span>
+                  <span class="chip">Fresh qualifiers</span>
+                  <span class="chip">Sector leadership return</span>
+                </div>
+              </details>
+            </div>
+            <div class="item-right muted">Monitor</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-kicker">Rotation</div>
+      <div class="section-title">Sector Rotation</div>
+      <div class="section-sub">Today reads less like active rotation and more like broad withdrawal of participation.</div>
+      <div class="heatmap">
+        <div class="heat-cell weak"><div class="heat-title">Industrials</div><div class="heat-sub">recent leaders failed to hold</div></div>
+        <div class="heat-cell weak"><div class="heat-title">Basic Materials</div><div class="heat-sub">prior strength faded</div></div>
+        <div class="heat-cell weak"><div class="heat-title">Consumer Cyclical</div><div class="heat-sub">leadership thinned out</div></div>
+        <div class="heat-cell mid"><div class="heat-title">Healthcare</div><div class="heat-sub">no durable leadership</div></div>
+        <div class="heat-cell mid"><div class="heat-title">Financial Services</div><div class="heat-sub">participation remained limited</div></div>
+        <div class="heat-cell mid"><div class="heat-title">Consumer Defensive</div><div class="heat-sub">quality did not lead</div></div>
+        <div class="heat-cell mid"><div class="heat-title">Energy</div><div class="heat-sub">participation stayed muted</div></div>
+        <div class="heat-cell weak"><div class="heat-title">Technology</div><div class="heat-sub">no qualified strength</div></div>
+        <div class="heat-cell mid"><div class="heat-title">Real Estate</div><div class="heat-sub">no sustained leadership</div></div>
+        <div class="heat-cell mid"><div class="heat-title">Comm. Services</div><div class="heat-sub">no sustained leadership</div></div>
+      </div>
+    </section>
+
+    <section class="section grid-2">
+      <div class="card">
+        <div class="section-kicker">Breadth</div>
+        <div class="section-title" style="font-size:17px;margin-bottom:4px;">Breadth Trend</div>
+        <div class="section-sub">The signal today is the collapse itself.</div>
+        <div class="spark">
+          <div class="spark-col">
+            <div class="spark-val">77</div>
+            <div class="spark-bar" style="height:100%;"></div>
+            <div class="spark-label">02-26</div>
+          </div>
+          <div class="spark-col">
+            <div class="spark-val">69</div>
+            <div class="spark-bar" style="height:90%; opacity:.78;"></div>
+            <div class="spark-label">02-27</div>
+          </div>
+          <div class="spark-col">
+            <div class="spark-val">70</div>
+            <div class="spark-bar" style="height:91%; opacity:.82;"></div>
+            <div class="spark-label">03-01</div>
+          </div>
+          <div class="spark-col">
+            <div class="spark-val">52</div>
+            <div class="spark-bar" style="height:68%; opacity:.76;"></div>
+            <div class="spark-label">03-05</div>
+          </div>
+          <div class="spark-col">
+            <div class="spark-val">55</div>
+            <div class="spark-bar" style="height:72%; opacity:.78;"></div>
+            <div class="spark-label">03-06</div>
+          </div>
+          <div class="spark-col">
+            <div class="spark-val">47</div>
+            <div class="spark-bar" style="height:61%; opacity:.72;"></div>
+            <div class="spark-label">03-09</div>
+          </div>
+          <div class="spark-col">
+            <div class="spark-val">0</div>
+            <div class="spark-bar" style="height:10%; opacity:.48;"></div>
+            <div class="spark-label">03-18</div>
+          </div>
+        </div>
+        <div class="note">Breadth rolled over in stages and then broke to zero full qualifiers today.</div>
+      </div>
+
+      <div class="card">
+        <div class="section-kicker">Regime</div>
+        <div class="section-title" style="font-size:17px;margin-bottom:4px;">Regime View</div>
+        <div class="section-sub">A plain-English framing of the tape.</div>
+        <div class="signal-row" style="margin-top:0;">
+          <span class="signal-pill gold">Tone: Defensive</span>
+          <span class="signal-pill gold">Breadth: Contracting</span>
+          <span class="signal-pill gold">Leadership: Fading</span>
+          <span class="signal-pill gold">Risk: Highly Selective</span>
+        </div>
+        <div class="brief-card" style="margin-top:14px;">
+          <span class="pill purple">Regime View</span>
+          <p>
+            The market is in a <b>contraction phase</b>. Breadth is below its recent average, the qualification pool has disappeared,
+            and prior leaders failed to hold. In this environment, <b>no trade is a valid position</b> until breadth and leadership rebuild.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-kicker">Conclusion</div>
+      <div class="section-title">Desk Interpretation</div>
+      <div class="card">
+        <p>
+          Today’s read is straightforward: <b style="color:var(--text-strong);">do not force exposure.</b> Zero qualifiers and a 47-name drop list
+          tell you the market is not rewarding aggressive deployment. The better move is to stay defensive, let the tape reset, and wait for
+          breadth expansion and fresh leadership to reappear before taking new risk.
+        </p>
+      </div>
+    </section>
+
+    <div class="footer">
+      <b style="color:var(--text-strong);">For informational purposes only • not investment advice.</b><br />
+      This report is produced by KLAEDON for research and informational use. It does not constitute investment advice, a solicitation, or a disclosure of internal strategy logic. Always conduct independent research before making investment decisions.
+    </div>
+  </div>
+</body>
+</html>
