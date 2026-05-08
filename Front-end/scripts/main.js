@@ -53,8 +53,6 @@ function initValidationFlow() {
   let feedbackSubmitting = false;
   let requestSuccessState = null;
   let feedbackSuccessState = null;
-  let bodyOverflowBeforeOpen = '';
-
   const defaultRequestSubmitText = requestSubmitButton ? requestSubmitButton.textContent.trim() : 'Submit Request';
   const defaultFeedbackSubmitText = feedbackSubmitButton ? feedbackSubmitButton.textContent.trim() : 'Submit Feedback';
 
@@ -62,22 +60,26 @@ function initValidationFlow() {
   const apiBase = isLocal
     ? (window.location.hostname === '127.0.0.1' ? 'http://127.0.0.1:3001' : 'http://localhost:3001')
     : ''; // Empty string means relative path (e.g. /api/waitlist) for Vercel deployment
-    
+
   function setText(el, text = '') {
     if (el) el.textContent = text;
   }
 
   function lockScroll() {
-    if (!bodyOverflowBeforeOpen) {
-      bodyOverflowBeforeOpen = document.body.style.overflow;
+    // Save original overflow only once, and only if not already locked
+    if (!document.body.dataset.scrollLocked) {
+      document.body.dataset.savedOverflow = document.body.style.overflow || '';
+      document.body.dataset.scrollLocked = '1';
     }
     document.body.style.overflow = 'hidden';
   }
 
   function unlockScroll() {
+    // Only restore scroll when no modal is active
     if (activeModal) return;
-    document.body.style.overflow = bodyOverflowBeforeOpen;
-    bodyOverflowBeforeOpen = '';
+    document.body.style.overflow = document.body.dataset.savedOverflow || '';
+    delete document.body.dataset.scrollLocked;
+    delete document.body.dataset.savedOverflow;
   }
 
   function getFocusableElements(panel) {
@@ -447,19 +449,19 @@ function initValidationFlow() {
 
     const urlParams = new URLSearchParams(window.location.search);
 
-const payload = {
-  product: 'klaedon',
-  email: emailInput?.value.trim() || '',
-  role: roleInput?.value || '',
-  consent: Boolean(consentInput?.checked),
-  honeypot: honeypotInput?.value.trim() || '',
-  referrer: document.referrer || window.location.href,
-  utm_source: urlParams.get('utm_source') || '',
-  utm_medium: urlParams.get('utm_medium') || '',
-  utm_campaign: urlParams.get('utm_campaign') || '',
-  utm_term: urlParams.get('utm_term') || '',
-  utm_content: urlParams.get('utm_content') || '',
-};
+    const payload = {
+      product: 'klaedon',
+      email: emailInput?.value.trim() || '',
+      role: roleInput?.value || '',
+      consent: Boolean(consentInput?.checked),
+      honeypot: honeypotInput?.value.trim() || '',
+      referrer: document.referrer || window.location.href,
+      utm_source: urlParams.get('utm_source') || '',
+      utm_medium: urlParams.get('utm_medium') || '',
+      utm_campaign: urlParams.get('utm_campaign') || '',
+      utm_term: urlParams.get('utm_term') || '',
+      utm_content: urlParams.get('utm_content') || '',
+    };
 
     try {
       const result = await postJson('/api/waitlist', payload);
@@ -647,7 +649,10 @@ const payload = {
 
     abortActiveRequest();
     activeModal = null;
-    unlockScroll();
+    // Force restore scroll on cleanup regardless of state
+    document.body.style.overflow = '';
+    delete document.body.dataset.scrollLocked;
+    delete document.body.dataset.savedOverflow;
   };
 }
 

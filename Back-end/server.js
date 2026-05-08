@@ -49,7 +49,7 @@ const corsOptions = {
     // Allow server-to-server requests (no origin header) — e.g. Postman, health checks
     if (!origin) return callback(null, true);
 
-    if (allowedOrigins.includes(origin)) {
+    if (allowedOrigins.includes(origin) || origin?.includes('localhost:') || origin?.includes('127.0.0.1:')) {
       return callback(null, true);
     }
 

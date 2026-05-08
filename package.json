@@ -1,0 +1,9 @@
+{
+  "name": "klaedon-mvp",
+  "version": "1.0.0",
+  "description": "Klaedon Waitlist & Feedback System",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.43.0",
+    "crypto": "^1.0.1"
+  }
+}
