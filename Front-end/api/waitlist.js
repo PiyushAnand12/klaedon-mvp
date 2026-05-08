@@ -1,12 +1,7 @@
-const express = require('express');
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
 
-const router = express.Router();
-
 const PRODUCT = 'klaedon';
-const RATE_LIMIT_MAX = Number(process.env.WAITLIST_RATE_LIMIT_MAX || 5);
-const RATE_LIMIT_WINDOW_MINUTES = Number(process.env.WAITLIST_RATE_LIMIT_WINDOW_MINUTES || 10);
 
 let supabase = null;
 
@@ -45,21 +40,6 @@ function emailOk(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email || '');
 }
 
-function normalizeLeadId(value) {
-  const raw = String(value || '').trim();
-  if (!raw) return null;
-  return /^\d+$/.test(raw) ? Number(raw) : raw;
-}
-
-function normalizeTopNeeds(value) {
-  if (!Array.isArray(value)) return [];
-  const cleaned = value
-    .map((item) => normalizeText(item, 60))
-    .filter(Boolean);
-
-  return [...new Set(cleaned)].slice(0, 10);
-}
-
 function getIp(req) {
   const xf = req.headers['x-forwarded-for'];
   if (typeof xf === 'string' && xf.length) return xf.split(',')[0].trim();
@@ -83,10 +63,8 @@ function isColumnError(error, column) {
 
 function stripUnsupportedLeadColumns(payload, error) {
   const next = { ...payload };
-
   if (isColumnError(error, 'product')) delete next.product;
   if (isColumnError(error, 'role')) delete next.role;
-
   return next;
 }
 
@@ -104,7 +82,8 @@ function logSupabaseError(label, error, extra = {}) {
 }
 
 async function getRecentSignupCountByIpHash(client, ipHash) {
-  const since = new Date(Date.now() - RATE_LIMIT_WINDOW_MINUTES * 60 * 1000).toISOString();
+  const windowMinutes = Number(process.env.WAITLIST_RATE_LIMIT_WINDOW_MINUTES || 10);
+  const since = new Date(Date.now() - windowMinutes * 60 * 1000).toISOString();
 
   const { count, error } = await client
     .from('waitlist_leads')
@@ -219,13 +198,26 @@ async function insertLead(client, payload) {
   return { data: retry.data, error: retry.error || null };
 }
 
-/**
- * POST /waitlist
- * Also mounted at /api/waitlist
- */
-router.post('/', async (req, res) => {
-  let client;
+module.exports = async (req, res) => {
+  // CORS Headers for Vercel
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  );
 
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  let client;
   try {
     client = getSupabase();
   } catch (error) {
@@ -260,12 +252,14 @@ router.post('/', async (req, res) => {
     const salt = process.env.IP_HASH_SALT || '';
     const ipHash = ip ? sha256(ip + salt) : null;
 
+    const rateLimitMax = Number(process.env.WAITLIST_RATE_LIMIT_MAX || 5);
+
     const [signupCount, existingLead] = await Promise.all([
       ipHash ? getRecentSignupCountByIpHash(client, ipHash) : Promise.resolve(0),
       getExistingLeadByEmail(client, email),
     ]);
 
-    if (ipHash && signupCount >= RATE_LIMIT_MAX) {
+    if (ipHash && signupCount >= rateLimitMax) {
       return bad(res, 'Too many attempts. Try again later.', 429);
     }
 
@@ -287,7 +281,7 @@ router.post('/', async (req, res) => {
       email,
       role: role || null,
       consent: true,
-      referrer: body.referrer || req.get('referer') || null,
+      referrer: body.referrer || req.headers['referer'] || null,
       ip_hash: ipHash,
       status: 'new',
       utm_source: body.utm_source || null,
@@ -326,72 +320,4 @@ router.post('/', async (req, res) => {
     logSupabaseError('waitlist lead error:', error, { route: '/api/waitlist' });
     return bad(res, 'Failed to save waitlist lead.', 500);
   }
-});
-
-/**
- * POST /waitlist/feedback
- * Also mounted at /api/waitlist/feedback
- */
-router.post('/feedback', async (req, res) => {
-  let client;
-
-  try {
-    client = getSupabase();
-  } catch (error) {
-    return bad(res, error.message || 'Supabase init failed', 500);
-  }
-
-  try {
-    const body = req.body || {};
-    const leadId = normalizeLeadId(body.lead_id);
-
-    if (!leadId) {
-      return bad(res, 'lead_id is required.', 400);
-    }
-
-    const { data: lead, error: leadError } = await client
-      .from('waitlist_leads')
-      .select('id')
-      .eq('id', leadId)
-      .maybeSingle();
-
-    if (leadError) throw leadError;
-    if (!lead) {
-      return bad(res, 'Invalid lead_id.', 400);
-    }
-
-    const allowedDelivery = new Set(['email', 'whatsapp', 'both']);
-    const allowedPrice = new Set(['0-199', '200-499', '500-999', '1000+']);
-
-    const topNeeds = normalizeTopNeeds(body.top_needs);
-    const delivery = normalizeText(body.delivery_preference, 40) || 'email';
-    const price = normalizeText(body.price_expectation, 40) || '0-199';
-    const freeText = normalizeText(body.free_text, 500) || null;
-
-    const feedbackPayload = {
-      lead_id: leadId,
-      top_needs: topNeeds,
-      delivery_preference: allowedDelivery.has(delivery) ? delivery : 'email',
-      price_expectation: allowedPrice.has(price) ? price : '0-199',
-      free_text: freeText,
-    };
-
-    const { error: feedbackError } = await client
-      .from('waitlist_feedback')
-      .insert([feedbackPayload]);
-
-    if (feedbackError) {
-      logSupabaseError('waitlist feedback insert error:', feedbackError, {
-        table: 'waitlist_feedback',
-      });
-      throw feedbackError;
-    }
-
-    return res.json({ success: true });
-  } catch (error) {
-    logSupabaseError('waitlist feedback error:', error, { route: '/api/waitlist/feedback' });
-    return bad(res, 'Failed to save feedback.', 500);
-  }
-});
-
-module.exports = router;
+};

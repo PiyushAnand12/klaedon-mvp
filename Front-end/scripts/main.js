@@ -58,10 +58,10 @@ function initValidationFlow() {
   const defaultRequestSubmitText = requestSubmitButton ? requestSubmitButton.textContent.trim() : 'Submit Request';
   const defaultFeedbackSubmitText = feedbackSubmitButton ? feedbackSubmitButton.textContent.trim() : 'Submit Feedback';
 
-  const apiBase =
-  window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
+  const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  const apiBase = isLocal
     ? (window.location.hostname === '127.0.0.1' ? 'http://127.0.0.1:3001' : 'http://localhost:3001')
-    : 'https://klaedon-backend.onrender.com';
+    : ''; // Empty string means relative path (e.g. /api/waitlist) for Vercel deployment
     
   function setText(el, text = '') {
     if (el) el.textContent = text;
